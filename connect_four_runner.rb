@@ -1,4 +1,6 @@
-  require './lib/game'
-  require './lib/board'
+require './lib/game'
+require './lib/board'
 
-  Game.new(Board.new)
+game = Game.new
+
+game.start

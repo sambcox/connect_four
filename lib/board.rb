@@ -13,4 +13,6 @@ class Board
       "G" => [Cell.new, Cell.new, Cell.new, Cell.new, Cell.new, Cell.new]
     }
   end
+
+  
 end

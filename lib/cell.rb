@@ -7,4 +7,10 @@ class Cell
   def add_piece
     @piece = "X"
   end
+
+  def printing
+    if @piece == nil
+      "."
+    end
+  end
 end

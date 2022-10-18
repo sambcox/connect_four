@@ -6,6 +6,8 @@ RSpec.describe Board do
     board = Board.new
 
     expect(board).to be_a(Board)
+
+    require 'pry'; binding.pry
   end
 
   it 'has columns' do
