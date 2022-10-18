@@ -45,6 +45,13 @@ class Game
     puts row_2.join(" ")
     puts row_1.join(" ")
     puts row_0.join(" ")
+
+    user_take_turn
+  end
+
+  def user_take_turn
+    puts "Please enter a letter between A and G"
+    letter_inputted = gets.chomp
   end
 
   def quit_game
