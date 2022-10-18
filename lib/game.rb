@@ -8,6 +8,19 @@ class Game
     @board = Board.new
   end
 
+  def main_menu
+    puts "Welcome to Connect Four!"
+    puts "To play, press p. To quit, press q."
+
+    want_to_play = gets.chomp.downcase
+    if want_to_play == "p"
+      start
+    elsif want_to_play == "q"
+      quit_game
+    else puts "Invalid input, please press p or q"
+    end
+  end
+
   def start
     puts self.board.columns.keys.join(" ")
 
@@ -32,6 +45,10 @@ class Game
     puts row_4.join(" ")
     puts row_5.join(" ")
 
+  end
+
+  def quit_game
+    puts "Thank you for playing!"
   end
 
 end

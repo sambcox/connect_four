@@ -3,4 +3,4 @@ require './lib/board'
 
 game = Game.new
 
-game.start
+game.main_menu
