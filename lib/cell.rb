@@ -13,4 +13,8 @@ class Cell
       "."
     end
   end
+
+  def empty?
+    @piece == nil
+  end
 end
