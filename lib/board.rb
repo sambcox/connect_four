@@ -14,34 +14,27 @@ class Board
     }
   end
 
+  # def find_empty_space(column_inputted)
+  #   columns.find do |column, row|
+  #     column_inputted.downcase == column.downcase && row.empty?
+  #   end
+  #   add_piece
+  # end
+
+
   def place_piece(column_inputted)
-    columns.each do |column, row|
-      if column_inputted.downcase == column.downcase && row[0].empty?
-        row[0].add_piece
-        return
-      elsif
-        column_inputted.downcase == column.downcase && row[1].empty?
-        row[1].add_piece
-        return
-      elsif
-        column_inputted.downcase == column.downcase && row[2].empty?
-        row[2].add_piece
-        return
-      elsif
-        column_inputted.downcase == column.downcase && row[3].empty?
-        row[3].add_piece
-        return
-      elsif
-        column_inputted.downcase == column.downcase && row[4].empty?
-        row[4].add_piece
-        return
-      elsif
-        column_inputted.downcase == column.downcase && row[5].empty?
-        row[5].add_piece
-        return
-      else
-        puts "That column is full! Please choose another"
-        place_piece(gets.chomp)
+    if columns[column_inputted.upcase][5].empty? == false
+      puts "That column is full! Please select another."
+      place_piece(gets.chomp)
+    else
+      columns.find do |column, row|
+        if column_inputted.downcase == column.downcase
+          row.find do |cell|
+            if cell.empty?
+              cell.add_piece
+            end
+          end
+        end
       end
     end
   end
