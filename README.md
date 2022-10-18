@@ -28,3 +28,5 @@ puts welcome statement
 show the main menu
 
 ask for an input
+
+I am writing this line for git practice
