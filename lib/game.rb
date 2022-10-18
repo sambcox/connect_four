@@ -18,6 +18,7 @@ class Game
     elsif want_to_play == "q"
       quit_game
     else puts "Invalid input, please press p or q"
+      main menu
     end
   end
 
