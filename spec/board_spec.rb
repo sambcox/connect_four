@@ -21,4 +21,11 @@ RSpec.describe Board do
 
     expect(board.columns["A"][0]).to be_a(Cell)
   end
+
+  it 'can have pieces added' do
+    board = Board.new
+    board.place_piece('a')
+
+    expect(board.columns["A"][0].empty?).to eq(false)
+  end
 end
