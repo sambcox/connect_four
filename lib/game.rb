@@ -14,7 +14,8 @@ class Game
 
     want_to_play = gets.chomp.downcase
     if want_to_play == "p"
-      start
+      print_board
+      user_take_turn
     elsif want_to_play == "q"
       quit_game
     else puts "Invalid input, please press p or q"
@@ -22,7 +23,7 @@ class Game
     end
   end
 
-  def start
+  def print_board
     puts self.board.columns.keys.join(" ")
 
     row_0 = []
@@ -45,6 +46,13 @@ class Game
     puts row_2.join(" ")
     puts row_1.join(" ")
     puts row_0.join(" ")
+  end
+
+
+  def user_take_turn
+    puts "Please enter a letter between A and G"
+    board.place_piece(gets.chomp)
+    print_board
   end
 
   def quit_game
