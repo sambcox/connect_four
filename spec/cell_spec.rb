@@ -23,4 +23,16 @@ RSpec.describe Cell do
       expect(cell.piece).to eq("X")
     end
   end
+
+  describe "empty?" do
+    it 'returns if cell is empty or not' do
+      cell = Cell.new
+
+      expect(cell.empty?).to eq(true)
+
+      cell.add_piece
+
+      expect(cell.empty?).to eq(false)
+    end
+  end
 end

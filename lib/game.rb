@@ -18,6 +18,7 @@ class Game
     elsif want_to_play == "q"
       quit_game
     else puts "Invalid input, please press p or q"
+      main menu
     end
   end
 
@@ -38,13 +39,12 @@ class Game
       row_4 << value[4].printing
       row_5 << value[5].printing
     end
-    puts row_0.join(" ")
-    puts row_1.join(" ")
-    puts row_2.join(" ")
-    puts row_3.join(" ")
-    puts row_4.join(" ")
     puts row_5.join(" ")
-
+    puts row_4.join(" ")
+    puts row_3.join(" ")
+    puts row_2.join(" ")
+    puts row_1.join(" ")
+    puts row_0.join(" ")
   end
 
   def quit_game
