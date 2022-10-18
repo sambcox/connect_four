@@ -11,6 +11,8 @@ class Cell
   def printing
     if @piece == nil
       "."
+    else
+      @piece
     end
   end
 

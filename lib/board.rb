@@ -14,5 +14,11 @@ class Board
     }
   end
 
-  
+  def place_piece(column_inputted)
+    columns.each do |column, row|
+      if column_inputted.downcase == column.downcase && row[0].empty?
+        row[0].add_piece
+      end
+    end
+  end
 end
