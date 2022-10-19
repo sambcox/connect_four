@@ -32,6 +32,7 @@ class Game
     row_3 = []
     row_4 = []
     row_5 = []
+
     self.board.columns.each do |key, value|
       row_0 << value[0].printing
       row_1 << value[1].printing

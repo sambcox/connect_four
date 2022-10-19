@@ -4,16 +4,19 @@ class Board
   attr_reader :columns
   def initialize
     @columns = {
-      # do this in a loop
-      "A" => [Cell.new, Cell.new, Cell.new, Cell.new, Cell.new, Cell.new],
-      "B" => [Cell.new, Cell.new, Cell.new, Cell.new, Cell.new, Cell.new],
-      "C" => [Cell.new, Cell.new, Cell.new, Cell.new, Cell.new, Cell.new],
-      "D" => [Cell.new, Cell.new, Cell.new, Cell.new, Cell.new, Cell.new],
-      "E" => [Cell.new, Cell.new, Cell.new, Cell.new, Cell.new, Cell.new],
-      "F" => [Cell.new, Cell.new, Cell.new, Cell.new, Cell.new, Cell.new],
-      "G" => [Cell.new, Cell.new, Cell.new, Cell.new, Cell.new, Cell.new]
+      "A" => [],
+      "B" => [],
+      "C" => [],
+      "D" => [],
+      "E" => [],
+      "F" => [],
+      "G" => []
     }
-  end
+
+      @columns.each do |column, row|
+      6.times{ row << Cell.new}
+      end
+    end
 
   # def find_empty_space(column_inputted)
   #   columns.find do |column, row|
