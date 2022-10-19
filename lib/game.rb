@@ -52,15 +52,12 @@ class Game
   def user_take_turn
     puts "Please enter a letter between A and G"
     user_input = gets.chomp
-    if user_input.upcase.include? "ABCDEFG"
+    if "ABCDEFG".include? user_input.upcase
       board.place_piece(user_input)
       print_board
       user_take_turn
     else
       puts "That is an invalid input! Please select a letter between A and G."
-      user_input = gets.chomp
-      board.place_piece(user_input)
-      print_board
       user_take_turn
     end
   end

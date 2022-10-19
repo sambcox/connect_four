@@ -4,6 +4,7 @@ class Board
   attr_reader :columns
   def initialize
     @columns = {
+      # do this in a loop
       "A" => [Cell.new, Cell.new, Cell.new, Cell.new, Cell.new, Cell.new],
       "B" => [Cell.new, Cell.new, Cell.new, Cell.new, Cell.new, Cell.new],
       "C" => [Cell.new, Cell.new, Cell.new, Cell.new, Cell.new, Cell.new],
