@@ -8,6 +8,10 @@ class Cell
     @piece = "X"
   end
 
+  def computer_add_piece
+    @piece = "O"
+  end
+
   def printing
     if @piece == nil
       "."
