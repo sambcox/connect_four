@@ -14,17 +14,16 @@ class Board
       "G" => []
     }
 
-      @columns.each do |column, row|
-      6.times{ row << Cell.new}
-      end
+    @columns.each do |column, row|
+    6.times{ row << Cell.new}
     end
+  end
 
     def user_take_turn
       puts "Please enter a letter between A and G"
       user_input = gets.chomp
       if "ABCDEFG".include? user_input.upcase
         place_piece(user_input)
-
       else
         puts "That is an invalid input! Please select a letter between A and G."
         user_take_turn
