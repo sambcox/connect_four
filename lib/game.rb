@@ -15,11 +15,11 @@ class Game
     want_to_play = gets.chomp.downcase
     if want_to_play == "p"
       print_board
-      user_take_turn
+      game_user_take_turn
     elsif want_to_play == "q"
       quit_game
     else puts "Invalid input, please press p or q"
-      main menu
+      main_menu
     end
   end
 
@@ -49,19 +49,18 @@ class Game
     puts row_0.join(" ")
   end
 
-
-  def user_take_turn
-    puts "Please enter a letter between A and G"
-    user_input = gets.chomp
-    if "ABCDEFG".include? user_input.upcase
-      board.place_piece(user_input)
-      print_board
-      user_take_turn
-    else
-      puts "That is an invalid input! Please select a letter between A and G."
-      user_take_turn
-    end
+  def game_user_take_turn
+    board.user_take_turn
+    print_board
+    game_pc_take_turn
   end
+
+  def game_pc_take_turn
+    board.computer_take_turn
+    print_board
+    game_user_take_turn
+  end
+
 
   def quit_game
     puts "Thank you for playing!"
