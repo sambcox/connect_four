@@ -42,9 +42,7 @@ class Board
       columns.find do |column, row|
         if column_inputted.downcase == column.downcase
           row.find do |cell|
-            if cell.empty?
-              cell.computer_add_piece
-            end
+            cell.computer_add_piece if cell.empty?
           end
         end
       end

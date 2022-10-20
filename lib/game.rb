@@ -49,6 +49,10 @@ class Game
     puts row_0.join(" ")
   end
 
+  def endgame
+    board.columns.map { |column, row| row.last.empty?}.find_all { |cell| cell == false}.length == 7
+  end
+
   def game_user_take_turn
     board.user_take_turn
     print_board
@@ -58,12 +62,31 @@ class Game
   def game_pc_take_turn
     board.computer_take_turn
     print_board
-    game_user_take_turn
+    game_user_take_turn unless endgame == true
+    draw_game
   end
 
+
+  def draw_game
+    puts "Thank you for playing! This game is a draw."
+    main_menu
+  end
+
+  def play_again
+    puts "If you would like to play again, press p, to quit, press q"
+
+    want_to_play = gets.chomp.downcase
+    if want_to_play == "p"
+      print_board
+      game_user_take_turn
+    elsif want_to_play == "q"
+      quit_game
+    else puts "Invalid input, please press p or q"
+      play_again
+    end
 
   def quit_game
-    puts "Thank you for playing!"
-  end
+    
+    
 
 end
