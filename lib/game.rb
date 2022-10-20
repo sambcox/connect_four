@@ -96,6 +96,14 @@ class Game
     board.columns.map { |column, row| row[3].printing}.each_cons(4) { |consecutive| consecutive_rows << consecutive}
     board.columns.map { |column, row| row[4].printing}.each_cons(4) { |consecutive| consecutive_rows << consecutive}
     board.columns.map { |column, row| row[5].printing}.each_cons(4) { |consecutive| consecutive_rows << consecutive}
+
+    board.columns["A"].map { |cell| cell.printing}.each_cons(4) { |consecutive| consecutive_rows << consecutive}
+    board.columns["B"].map { |cell| cell.printing}.each_cons(4) { |consecutive| consecutive_rows << consecutive}
+    board.columns["C"].map { |cell| cell.printing}.each_cons(4) { |consecutive| consecutive_rows << consecutive}
+    board.columns["D"].map { |cell| cell.printing}.each_cons(4) { |consecutive| consecutive_rows << consecutive}
+    board.columns["E"].map { |cell| cell.printing}.each_cons(4) { |consecutive| consecutive_rows << consecutive}
+    board.columns["F"].map { |cell| cell.printing}.each_cons(4) { |consecutive| consecutive_rows << consecutive}
+    board.columns["G"].map { |cell| cell.printing}.each_cons(4) { |consecutive| consecutive_rows << consecutive}
     person_win_game if consecutive_rows.any?(["X", "X", "X", "X"])
   end
 
