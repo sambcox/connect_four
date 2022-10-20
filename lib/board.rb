@@ -13,17 +13,12 @@ class Board
       "G" => []
     }
 
-      @columns.each do |column, row|
-      6.times{ row << Cell.new}
-      end
+    @columns.each do |column, row|
+    6.times{ row << Cell.new}
     end
+  end
 
-  # def find_empty_space(column_inputted)
-  #   columns.find do |column, row|
-  #     column_inputted.downcase == column.downcase && row.empty?
-  #   end
-  #   add_piece
-  # end
+  
 
 
   def place_piece(column_inputted)
