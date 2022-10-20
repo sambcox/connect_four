@@ -84,9 +84,11 @@ class Game
     else puts "Invalid input, please press p or q"
       play_again
     end
+  end
 
   def quit_game
-    
-    
+    puts "Goodbye!"
+  end
+
 
 end
