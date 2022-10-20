@@ -63,6 +63,13 @@ class Game
     end
   end
 
+  def computer_take_turn
+      computer_input = columns.keys.shuffle.shuffle.first
+      board.place_piece(computer_input)
+      print_board
+      user_take_turn
+  end
+
   def quit_game
     puts "Thank you for playing!"
   end
