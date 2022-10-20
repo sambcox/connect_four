@@ -54,12 +54,14 @@ class Game
   end
 
   def game_user_take_turn
+    win_game
     board.user_take_turn
     print_board
-    game_pc_take_turn
+    game_user_take_turn
   end
 
   def game_pc_take_turn
+    win_game
     board.computer_take_turn
     print_board
     game_user_take_turn unless endgame == true
@@ -84,6 +86,22 @@ class Game
     else puts "Invalid input, please press p or q"
       play_again
     end
+  end
+
+  def win_game
+    consecutive_rows = []
+    board.columns.map { |column, row| row[0].printing}.each_cons(4) { |consecutive| consecutive_rows << consecutive}
+    board.columns.map { |column, row| row[1].printing}.each_cons(4) { |consecutive| consecutive_rows << consecutive}
+    board.columns.map { |column, row| row[2].printing}.each_cons(4) { |consecutive| consecutive_rows << consecutive}
+    board.columns.map { |column, row| row[3].printing}.each_cons(4) { |consecutive| consecutive_rows << consecutive}
+    board.columns.map { |column, row| row[4].printing}.each_cons(4) { |consecutive| consecutive_rows << consecutive}
+    board.columns.map { |column, row| row[5].printing}.each_cons(4) { |consecutive| consecutive_rows << consecutive}
+    person_win_game if consecutive_rows.any?(["X", "X", "X", "X"])
+  end
+
+  def person_win_game
+    puts "You've won!"
+    play_again
   end
 
   def quit_game
