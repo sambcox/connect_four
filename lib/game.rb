@@ -137,6 +137,7 @@ class Game
     diag.map { |cell| cell.printing}.each_cons(4) { |consecutive| consecutive_rows << consecutive}
 
     person_win_game if consecutive_rows.any?(["X", "X", "X", "X"])
+    computer_win_game if consecutive_rows.any?(["O", "O", "O", "O"])
   end
 
   def person_win_game
@@ -144,9 +145,14 @@ class Game
     play_again
   end
 
+  def computer_win_game
+    puts "You've lost!"
+    play_again
+  end
+
   def quit_game
     puts "Goodbye!"
-    return
+    abort
   end
 
 
