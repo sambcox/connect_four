@@ -55,6 +55,7 @@ class Game
 
   def game_user_take_turn
     win_game
+    puts "--------------------------------"
     board.user_take_turn
     print_board
     game_pc_take_turn
@@ -62,6 +63,7 @@ class Game
 
   def game_pc_take_turn
     win_game
+    puts "--------------------------------"
     board.computer_take_turn
     print_board
     game_user_take_turn unless endgame == true
@@ -141,16 +143,19 @@ class Game
   end
 
   def person_win_game
+    puts "--------------------------------"
     puts "You've won!"
     play_again
   end
 
   def computer_win_game
+    puts "--------------------------------"
     puts "You've lost!"
     play_again
   end
 
   def quit_game
+    puts "--------------------------------"
     puts "Goodbye!"
     abort
   end
