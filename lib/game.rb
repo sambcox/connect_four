@@ -127,12 +127,12 @@ class Game
     diag = board.columns.values.flatten.select.with_index{|_,i| (i + 5) % 5 == 0}
     diag.pop
     diag.map { |cell| cell.printing}.each_cons(4) { |consecutive| consecutive_rows << consecutive}
-    diag = board.columns.values.flatten.select.with_index{|_,i| (i + 6) % 5 == 0}
+    diag = board.columns.values.flatten.select.with_index{|_,i| (i + 7) % 5 == 0}
     diag.map { |cell| cell.printing}.each_cons(4) { |consecutive| consecutive_rows << consecutive}
-    diag = board.columns.values.flatten.select.with_index{|_,i| (i + 13) % 5 == 0}
+    diag = board.columns.values.flatten.select.with_index{|_,i| (i + 14) % 5 == 0}
     diag.pop
     diag.map { |cell| cell.printing}.each_cons(4) { |consecutive| consecutive_rows << consecutive}
-    diag = board.columns.values.flatten.select.with_index{|_,i| (i + 20) % 5 == 0}
+    diag = board.columns.values.flatten.select.with_index{|_,i| (i + 21) % 5 == 0}
     diag.pop(2)
     diag.map { |cell| cell.printing}.each_cons(4) { |consecutive| consecutive_rows << consecutive}
 
