@@ -57,7 +57,7 @@ class Game
     win_game
     board.user_take_turn
     print_board
-    game_user_take_turn
+    game_pc_take_turn
   end
 
   def game_pc_take_turn
@@ -90,12 +90,52 @@ class Game
 
   def win_game
     consecutive_rows = []
+
     board.columns.map { |column, row| row[0].printing}.each_cons(4) { |consecutive| consecutive_rows << consecutive}
     board.columns.map { |column, row| row[1].printing}.each_cons(4) { |consecutive| consecutive_rows << consecutive}
     board.columns.map { |column, row| row[2].printing}.each_cons(4) { |consecutive| consecutive_rows << consecutive}
     board.columns.map { |column, row| row[3].printing}.each_cons(4) { |consecutive| consecutive_rows << consecutive}
     board.columns.map { |column, row| row[4].printing}.each_cons(4) { |consecutive| consecutive_rows << consecutive}
     board.columns.map { |column, row| row[5].printing}.each_cons(4) { |consecutive| consecutive_rows << consecutive}
+
+    board.columns["A"].map { |cell| cell.printing}.each_cons(4) { |consecutive| consecutive_rows << consecutive}
+    board.columns["B"].map { |cell| cell.printing}.each_cons(4) { |consecutive| consecutive_rows << consecutive}
+    board.columns["C"].map { |cell| cell.printing}.each_cons(4) { |consecutive| consecutive_rows << consecutive}
+    board.columns["D"].map { |cell| cell.printing}.each_cons(4) { |consecutive| consecutive_rows << consecutive}
+    board.columns["E"].map { |cell| cell.printing}.each_cons(4) { |consecutive| consecutive_rows << consecutive}
+    board.columns["F"].map { |cell| cell.printing}.each_cons(4) { |consecutive| consecutive_rows << consecutive}
+    board.columns["G"].map { |cell| cell.printing}.each_cons(4) { |consecutive| consecutive_rows << consecutive}
+
+    diag = board.columns.values.flatten.select.with_index{|_,i| i % 7 == 0}
+    diag.map { |cell| cell.printing}.each_cons(4) { |consecutive| consecutive_rows << consecutive}
+    diag = board.columns.values.flatten.select.with_index{|_,i| i % 7 == 1}
+    diag.pop
+    diag.map { |cell| cell.printing}.each_cons(4) { |consecutive| consecutive_rows << consecutive}
+    diag = board.columns.values.flatten.select.with_index{|_,i| i % 7 == 2}
+    diag.pop(2)
+    diag.map { |cell| cell.printing}.each_cons(4) { |consecutive| consecutive_rows << consecutive}
+    diag = board.columns.values.flatten.select.with_index{|_,i| (i + 7) % 7 == 0}
+    diag.pop
+    diag.map { |cell| cell.printing}.each_cons(4) { |consecutive| consecutive_rows << consecutive}
+    diag = board.columns.values.flatten.select.with_index{|_,i| (i + 14) % 7 == 0}
+    diag.pop(2)
+    diag.map { |cell| cell.printing}.each_cons(4) { |consecutive| consecutive_rows << consecutive}
+
+    diag = board.columns.values.flatten.select.with_index{|_,i| (i + 4) % 5 == 0}
+    diag.pop(2)
+    diag.map { |cell| cell.printing}.each_cons(4) { |consecutive| consecutive_rows << consecutive}
+    diag = board.columns.values.flatten.select.with_index{|_,i| (i + 5) % 5 == 0}
+    diag.pop
+    diag.map { |cell| cell.printing}.each_cons(4) { |consecutive| consecutive_rows << consecutive}
+    diag = board.columns.values.flatten.select.with_index{|_,i| (i + 6) % 5 == 0}
+    diag.map { |cell| cell.printing}.each_cons(4) { |consecutive| consecutive_rows << consecutive}
+    diag = board.columns.values.flatten.select.with_index{|_,i| (i + 13) % 5 == 0}
+    diag.pop
+    diag.map { |cell| cell.printing}.each_cons(4) { |consecutive| consecutive_rows << consecutive}
+    diag = board.columns.values.flatten.select.with_index{|_,i| (i + 20) % 5 == 0}
+    diag.pop(2)
+    diag.map { |cell| cell.printing}.each_cons(4) { |consecutive| consecutive_rows << consecutive}
+
     person_win_game if consecutive_rows.any?(["X", "X", "X", "X"])
   end
 
@@ -106,6 +146,7 @@ class Game
 
   def quit_game
     puts "Goodbye!"
+    return
   end
 
 
