@@ -145,11 +145,14 @@ class Game
     diag.shift(3)
     diag.map { |cell| cell.printing}.each_cons(4) { |consecutive| consecutive_rows << consecutive}
     diag = board.columns.values.flatten.select.with_index{|_,i| i % 5 == 1}
+
     diag.pop
     diag.shift(2)
     diag.map { |cell| cell.printing}.each_cons(4) { |consecutive| consecutive_rows << consecutive}
+
     diag = board.columns.values.flatten.select.with_index{|_,i| i % 5 == 0}
     diag.shift
+
     diag.pop(2)
     diag.map { |cell| cell.printing}.each_cons(4) { |consecutive| consecutive_rows << consecutive}
     
