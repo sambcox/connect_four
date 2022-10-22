@@ -131,20 +131,28 @@ class Game
     diag = board.columns.values.flatten.select.with_index{|_,i| i % 7 == 2}
     diag.pop(2)
     diag.map { |cell| cell.printing}.each_cons(4) { |consecutive| consecutive_rows << consecutive}
-    diag = board.columns.values.flatten.select.with_index{|_,i| (i + 5) % 5 == 0}
+
+    diag = board.columns.values.flatten.select.with_index{|_,i| i % 5 == 4}
+    diag.pop(3)
+    diag.map { |cell| cell.printing}.each_cons(4) { |consecutive| consecutive_rows << consecutive}
+    diag = board.columns.values.flatten.select.with_index{|_,i| i % 5 == 3}
+    diag.pop(4)
+    diag.map { |cell| cell.printing}.each_cons(4) { |consecutive| consecutive_rows << consecutive}
+    diag = board.columns.values.flatten.select.with_index{|_,i| i % 5 == 3}
+    diag.shift(4)
+    diag.map { |cell| cell.printing}.each_cons(4) { |consecutive| consecutive_rows << consecutive}
+    diag = board.columns.values.flatten.select.with_index{|_,i| i % 5 == 2}
+    diag.shift(3)
+    diag.map { |cell| cell.printing}.each_cons(4) { |consecutive| consecutive_rows << consecutive}
+    diag = board.columns.values.flatten.select.with_index{|_,i| i % 5 == 1}
+    diag.pop
+    diag.shift(2)
+    diag.map { |cell| cell.printing}.each_cons(4) { |consecutive| consecutive_rows << consecutive}
+    diag = board.columns.values.flatten.select.with_index{|_,i| i % 5 == 0}
+    diag.shift
     diag.pop(2)
     diag.map { |cell| cell.printing}.each_cons(4) { |consecutive| consecutive_rows << consecutive}
-    diag = board.columns.values.flatten.select.with_index{|_,i| (i + 6) % 5 == 0}
-    diag.pop
-    diag.map { |cell| cell.printing}.each_cons(4) { |consecutive| consecutive_rows << consecutive}
-    diag = board.columns.values.flatten.select.with_index{|_,i| (i + 7) % 5 == 0}
-    diag.map { |cell| cell.printing}.each_cons(4) { |consecutive| consecutive_rows << consecutive}
-    diag = board.columns.values.flatten.select.with_index{|_,i| (i + 13) % 5 == 0}
-    diag.pop
-    diag.map { |cell| cell.printing}.each_cons(4) { |consecutive| consecutive_rows << consecutive}
-    diag = board.columns.values.flatten.select.with_index{|_,i| (i + 20) % 5 == 0}
-    diag.pop(2)
-    diag.map { |cell| cell.printing}.each_cons(4) { |consecutive| consecutive_rows << consecutive}
+    
 
     consecutive_rows.any?(["X", "X", "X", "X"]) ||
     consecutive_rows.any?(["O", "O", "O", "O"])
