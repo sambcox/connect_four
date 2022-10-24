@@ -11,7 +11,7 @@ RSpec.describe Cell do
     it "is nil by default" do
       cell = Cell.new
 
-      expect(cell.piece).to eq(nil)
+      expect(cell.piece).to eq(".")
     end
   end
 
