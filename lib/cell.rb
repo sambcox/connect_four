@@ -1,7 +1,7 @@
 class Cell
   attr_reader :piece
   def initialize
-    @piece = nil
+    @piece = "."
   end
 
   def add_piece
@@ -12,15 +12,7 @@ class Cell
     @piece = "O"
   end
 
-  def printing
-    if @piece == nil
-      "."
-    else
-      @piece
-    end
-  end
-
   def empty?
-    @piece == nil
+    @piece == "."
   end
 end
