@@ -28,9 +28,9 @@ class Game
 
   def two_player_start
     puts "Please enter player 1 name"
-    @player1 = Player.new(gets.chomp)
+    @player1 = Player.new(gets.chomp.capitalize)
     puts "Please enter player 2 name"
-    @player2 = Player.new(gets.chomp)
+    @player2 = Player.new(gets.chomp.capitalize)
     @board = Board.new
     board.print_board
     player1_take_turn
@@ -59,6 +59,7 @@ class Game
     player2_win_game if win_game?
     draw_game if endgame?
     puts "--------------------------------"
+    puts "#{player1.name}'s turn"
     board.user_take_turn
     board.print_board
     player2_take_turn
@@ -68,6 +69,7 @@ class Game
     player1_win_game if win_game?
     draw_game if endgame?
     puts "--------------------------------"
+    puts "#{player2.name}'s turn"
     board.two_player_take_turn
     board.print_board
     player1_take_turn
@@ -205,13 +207,13 @@ class Game
 
   def player1_win_game
     puts "--------------------------------"
-    puts "Congratulations #{player1.name}, you've won!"
+    puts "Congratulations #{player1.name}, you've won! Better luck next time #{player2.name}."
     play_again
   end
 
   def player2_win_game
     puts "--------------------------------"
-    puts "Congratulations #{player2.name}, you've won!"
+    puts "Congratulations #{player2.name}, you've won! Better luck next time #{player2.name}."
     play_again
   end
 
