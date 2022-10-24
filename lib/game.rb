@@ -36,14 +36,14 @@ class Game
     player1_take_turn
   end
 
+  def test_start
+    @board = Board.new
+  end
+
   def start
     @board = Board.new
     board.print_board
     game_user_take_turn
-  end
-
-  def endgame?
-    board.columns.map { |column, row| row.last.empty?}.find_all { |cell| cell == false}.length == 7
   end
 
   def game_user_take_turn
@@ -55,24 +55,6 @@ class Game
     game_pc_take_turn
   end
 
-  def player1_take_turn
-    player2_win_game if win_game?
-    draw_game if endgame?
-    puts "--------------------------------"
-    board.user_take_turn
-    board.print_board
-    player2_take_turn
-  end
-
-  def player2_take_turn
-    player1_win_game if win_game?
-    draw_game if endgame?
-    puts "--------------------------------"
-    board.two_player_take_turn
-    board.print_board
-    player1_take_turn
-  end
-
   def game_pc_take_turn
     person_win_game if win_game?
     draw_game if endgame?
@@ -82,15 +64,26 @@ class Game
     game_user_take_turn
   end
 
-  def test_start
-    @board = Board.new
+  def player1_take_turn
+    player2_win_game if win_game?
+    draw_game if endgame?
+    puts "#{player1.name}, please enter a letter between A and G"
+    puts "--------------------------------"
+    board.user_take_turn
+    board.print_board
+    player2_take_turn
   end
 
-  def draw_game
-    puts "Thank you for playing! This game is a draw."
-    main_menu
+  def player2_take_turn
+    player1_win_game if win_game?
+    draw_game if endgame?
+    puts "#{player2.name}, please enter a letter between A and G"
+    puts "--------------------------------"
+    board.two_player_take_turn
+    board.print_board
+    player1_take_turn
   end
-
+  
   def play_again
     puts "To play against PC, press c. To play with a friend, press p. To quit, press q."
 
@@ -191,6 +184,15 @@ class Game
     end
   end
 
+  def endgame?
+    board.columns.map { |column, row| row.last.empty?}.find_all { |cell| cell == false}.length == 7
+  end
+
+  def draw_game
+    puts "Thank you for playing! This game is a draw."
+    main_menu
+  end
+
   def person_win_game
     puts "--------------------------------"
     puts "You've won!"
@@ -205,13 +207,13 @@ class Game
 
   def player1_win_game
     puts "--------------------------------"
-    puts "Congratulations #{player1.name}, you've won!"
+    puts "Congratulations #{player1.name}, you've won! Better luck next time, #{player2.name}."
     play_again
   end
 
   def player2_win_game
     puts "--------------------------------"
-    puts "Congratulations #{player2.name}, you've won!"
+    puts "Congratulations #{player2.name}, you've won! Better luck next time, #{player1.name}."
     play_again
   end
 

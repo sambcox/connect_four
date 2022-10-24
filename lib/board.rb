@@ -43,7 +43,6 @@ class Board
   end
 
   def user_take_turn
-    puts "Please enter a letter between A and G"
     user_input = gets.chomp
     if "ABCDEFG".include? user_input.upcase
       place_piece(user_input)
@@ -54,7 +53,6 @@ class Board
   end
 
   def two_player_take_turn
-    puts "Please enter a letter between A and G"
     user_input = gets.chomp
     if "ABCDEFG".include? user_input.upcase
       user_place_piece(user_input)
@@ -71,6 +69,7 @@ class Board
 
   def user_place_piece(column_inputted)
     if columns[column_inputted.upcase][5].empty? == false
+      puts "That column is full! Please select another."
       user2_take_turn
     else
       columns.find do |column, row|
