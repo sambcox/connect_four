@@ -18,7 +18,6 @@ class Board
   end
 
   def print_board
-    puts columns.keys.join(" ")
 
     row_0 = []
     row_1 = []
