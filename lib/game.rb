@@ -1,25 +1,39 @@
 require './lib/cell'
-
+require './lib/player'
 require './lib/board'
 
 class Game
-  attr_reader :board
+  attr_reader :board, :player1, :player2
   def initialize
+    @player1 = nil
+    @player2 = nil
     @board = nil
   end
 
   def main_menu
     puts "Welcome to Connect Four!"
-    puts "To play, press p. To quit, press q."
+    puts "To play against PC, press c. To play with a friend, press p. To quit, press q."
 
     want_to_play = gets.chomp.downcase
-    if want_to_play == "p"
+    if want_to_play == "c"
       start
+    elsif want_to_play == "p"
+      two_player_start
     elsif want_to_play == "q"
       quit_game
     else puts "Invalid input, please press p or q"
       main_menu
     end
+  end
+
+  def two_player_start
+    puts "Please enter player 1 name"
+    @player1 = Player.new(gets.chomp)
+    puts "Please enter player 2 name"
+    @player2 = Player.new(gets.chomp)
+    @board = Board.new
+    board.print_board
+    player1_take_turn
   end
 
   def start
@@ -41,6 +55,24 @@ class Game
     game_pc_take_turn
   end
 
+  def player1_take_turn
+    player2_win_game if win_game?
+    draw_game if endgame?
+    puts "--------------------------------"
+    board.user_take_turn
+    board.print_board
+    player2_take_turn
+  end
+
+  def player2_take_turn
+    player1_win_game if win_game?
+    draw_game if endgame?
+    puts "--------------------------------"
+    board.two_player_take_turn
+    board.print_board
+    player1_take_turn
+  end
+
   def game_pc_take_turn
     person_win_game if win_game?
     draw_game if endgame?
@@ -60,11 +92,13 @@ class Game
   end
 
   def play_again
-    puts "If you would like to play again, press p, to quit, press q"
+    puts "To play against PC, press c. To play with a friend, press p. To quit, press q."
 
     want_to_play = gets.chomp.downcase
-    if want_to_play == "p"
+    if want_to_play == "c"
       start
+    elsif want_to_play == "p"
+      two_player_start
     elsif want_to_play == "q"
       quit_game
     else puts "Invalid input, please press p or q"
@@ -103,7 +137,7 @@ class Game
 
   def diagonal_win?
     consecutive_rows = []
-    
+
     diag = board.columns.values.flatten.select.with_index{|_,i| i % 7 == 0}
     diag.map { |cell| cell.piece}.each_cons(4) { |consecutive| consecutive_rows << consecutive}
     diag = board.columns.values.flatten.select.with_index{|_,i| (i + 8) % 7 == 0}
@@ -166,6 +200,18 @@ class Game
   def computer_win_game
     puts "--------------------------------"
     puts "You've lost!"
+    play_again
+  end
+
+  def player1_win_game
+    puts "--------------------------------"
+    puts "Congratulations #{player1.name}, you've won!"
+    play_again
+  end
+
+  def player2_win_game
+    puts "--------------------------------"
+    puts "Congratulations #{player2.name}, you've won!"
     play_again
   end
 
