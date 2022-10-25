@@ -19,27 +19,17 @@ class Board
 
   def print_board
     puts columns.keys.join(" ")
-    row_0 = []
-    row_1 = []
-    row_2 = []
-    row_3 = []
-    row_4 = []
-    row_5 = []
-
-    columns.each do |key, value|
-      row_0 << value[0].piece
-      row_1 << value[1].piece
-      row_2 << value[2].piece
-      row_3 << value[3].piece
-      row_4 << value[4].piece
-      row_5 << value[5].piece
+    board_turned_90 = {}
+    columns.each do |header, column|
+      column.each do |cell|
+        if board_turned_90.keys.include?(column.index(cell))
+          board_turned_90[column.index(cell)] << cell.piece
+        else
+          board_turned_90[column.index(cell)] = [cell.piece]
+        end
+      end
     end
-    puts row_5.join(" ")
-    puts row_4.join(" ")
-    puts row_3.join(" ")
-    puts row_2.join(" ")
-    puts row_1.join(" ")
-    puts row_0.join(" ")
+    board_turned_90.each { |header, row| puts row.join(" ")}
   end
 
   def user_take_turn
@@ -69,7 +59,7 @@ class Board
 
   def user_place_piece(column_inputted)
     if columns[column_inputted.upcase][5].empty? == false
-      puts "That column is full! Please select another."
+      puts "That column is full! Please select another"
       user2_take_turn
     else
       columns.find do |column, row|
@@ -110,4 +100,92 @@ class Board
       end
     end
   end
+end
+
+def horizontal_win?
+  consecutive_rows = []
+  board_turned_90 = {}
+  columns.each do |header, column|
+    column.each do |cell|
+      if board_turned_90.keys.include?(column.index(cell))
+        board_turned_90[column.index(cell)] << cell
+      else
+        board_turned_90[column.index(cell)] = [cell]
+      end
+    end
+  end
+
+  board_turned_90.values.map { |value| value.map { |cell| cell.piece}.each_cons(4) { |consecutive| consecutive_rows << consecutive}}
+    
+  consecutive_rows.any?(["X", "X", "X", "X"]) ||
+  consecutive_rows.any?(["O", "O", "O", "O"])
+end
+
+def vertical_win?
+  consecutive_rows = []
+
+  columns.values.map { |column| column.map { |cell| cell.piece}.each_cons(4) { |consecutive| consecutive_rows << consecutive}}
+
+  consecutive_rows.any?(["X", "X", "X", "X"]) ||
+  consecutive_rows.any?(["O", "O", "O", "O"])
+end
+
+def diagonal_win?
+  consecutive_rows = []
+
+  diag = columns.values.flatten.select.with_index{|_,i| i % 7 == 0}
+  diag.map { |cell| cell.piece}.each_cons(4) { |consecutive| consecutive_rows << consecutive}
+  diag = columns.values.flatten.select.with_index{|_,i| (i + 8) % 7 == 0}
+  diag.map { |cell| cell.piece}.each_cons(4) { |consecutive| consecutive_rows << consecutive}
+  diag = columns.values.flatten.select.with_index{|_,i| i % 7 == 5}
+  diag.shift
+  diag.map { |cell| cell.piece}.each_cons(4) { |consecutive| consecutive_rows << consecutive}
+  diag = columns.values.flatten.select.with_index{|_,i| i % 7 == 4}
+  diag.shift(2)
+  diag.map { |cell| cell.piece}.each_cons(4) { |consecutive| consecutive_rows << consecutive}
+  diag = columns.values.flatten.select.with_index{|_,i| i % 7 == 1}
+  diag.pop
+  diag.map { |cell| cell.piece}.each_cons(4) { |consecutive| consecutive_rows << consecutive}
+  diag = columns.values.flatten.select.with_index{|_,i| i % 7 == 2}
+  diag.pop(2)
+  diag.map { |cell| cell.piece}.each_cons(4) { |consecutive| consecutive_rows << consecutive}
+  diag = columns.values.flatten.select.with_index{|_,i| i % 5 == 4}
+  diag.pop(3)
+  diag.map { |cell| cell.piece}.each_cons(4) { |consecutive| consecutive_rows << consecutive}
+  diag = columns.values.flatten.select.with_index{|_,i| i % 5 == 3}
+  diag.pop(4)
+  diag.map { |cell| cell.piece}.each_cons(4) { |consecutive| consecutive_rows << consecutive}
+  diag = columns.values.flatten.select.with_index{|_,i| i % 5 == 3}
+  diag.shift(4)
+  diag.map { |cell| cell.piece}.each_cons(4) { |consecutive| consecutive_rows << consecutive}
+  diag = columns.values.flatten.select.with_index{|_,i| i % 5 == 2}
+  diag.shift(3)
+  diag.map { |cell| cell.piece}.each_cons(4) { |consecutive| consecutive_rows << consecutive}
+  diag = columns.values.flatten.select.with_index{|_,i| i % 5 == 1}
+  diag.pop
+  diag.shift(2)
+  diag.map { |cell| cell.piece}.each_cons(4) { |consecutive| consecutive_rows << consecutive}
+  diag = columns.values.flatten.select.with_index{|_,i| i % 5 == 0}
+  diag.shift
+  diag.pop(2)
+  diag.map { |cell| cell.piece}.each_cons(4) { |consecutive| consecutive_rows << consecutive}
+
+  consecutive_rows.any?(["X", "X", "X", "X"]) ||
+  consecutive_rows.any?(["O", "O", "O", "O"])
+end
+
+def win_game?
+  if horizontal_win?
+    return true
+  elsif vertical_win?
+    return true
+  elsif diagonal_win?
+    return true
+  else
+    return false
+  end
+end
+
+def endgame?
+  columns.map { |header, column| column.last.empty?}.find_all { |cell| cell == false}.length == 7
 end
