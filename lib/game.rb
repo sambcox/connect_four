@@ -101,14 +101,19 @@ class Game
 
   def horizontal_win?
     consecutive_rows = []
+    board_turned_90 = {}
+    board.columns.each do |header, column|
+      column.each do |cell|
+        if board_turned_90.keys.include?(column.index(cell))
+          board_turned_90[column.index(cell)] << cell
+        else
+          board_turned_90[column.index(cell)] = [cell]
+        end
+      end
+    end
 
-    board.columns.map { |column, row| row[0].piece}.each_cons(4) { |consecutive| consecutive_rows << consecutive}
-    board.columns.map { |column, row| row[1].piece}.each_cons(4) { |consecutive| consecutive_rows << consecutive}
-    board.columns.map { |column, row| row[2].piece}.each_cons(4) { |consecutive| consecutive_rows << consecutive}
-    board.columns.map { |column, row| row[3].piece}.each_cons(4) { |consecutive| consecutive_rows << consecutive}
-    board.columns.map { |column, row| row[4].piece}.each_cons(4) { |consecutive| consecutive_rows << consecutive}
-    board.columns.map { |column, row| row[5].piece}.each_cons(4) { |consecutive| consecutive_rows << consecutive}
-
+    board_turned_90.values.map { |value| value.map { |cell| cell.piece}.each_cons(4) { |consecutive| consecutive_rows << consecutive}}
+      
     consecutive_rows.any?(["X", "X", "X", "X"]) ||
     consecutive_rows.any?(["O", "O", "O", "O"])
   end
@@ -116,13 +121,7 @@ class Game
   def vertical_win?
     consecutive_rows = []
 
-    board.columns["A"].map { |cell| cell.piece}.each_cons(4) { |consecutive| consecutive_rows << consecutive}
-    board.columns["B"].map { |cell| cell.piece}.each_cons(4) { |consecutive| consecutive_rows << consecutive}
-    board.columns["C"].map { |cell| cell.piece}.each_cons(4) { |consecutive| consecutive_rows << consecutive}
-    board.columns["D"].map { |cell| cell.piece}.each_cons(4) { |consecutive| consecutive_rows << consecutive}
-    board.columns["E"].map { |cell| cell.piece}.each_cons(4) { |consecutive| consecutive_rows << consecutive}
-    board.columns["F"].map { |cell| cell.piece}.each_cons(4) { |consecutive| consecutive_rows << consecutive}
-    board.columns["G"].map { |cell| cell.piece}.each_cons(4) { |consecutive| consecutive_rows << consecutive}
+    board.columns.values.map { |column| column.map { |cell| cell.piece}.each_cons(4) { |consecutive| consecutive_rows << consecutive}}
 
     consecutive_rows.any?(["X", "X", "X", "X"]) ||
     consecutive_rows.any?(["O", "O", "O", "O"])
@@ -185,7 +184,7 @@ class Game
   end
 
   def endgame?
-    board.columns.map { |column, row| row.last.empty?}.find_all { |cell| cell == false}.length == 7
+    board.columns.map { |header, column| row.last.empty?}.find_all { |cell| cell == false}.length == 7
   end
 
   def draw_game
