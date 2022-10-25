@@ -101,18 +101,18 @@ class Game
 
   def horizontal_win?
     consecutive_rows = []
-    new_var = {}
+    board_turned_90 = {}
     board.columns.each do |header, column|
       column.each do |cell|
-        if new_var.keys.include?(column.index(cell))
-          new_var[column.index(cell)] << cell
+        if board_turned_90.keys.include?(column.index(cell))
+          board_turned_90[column.index(cell)] << cell
         else
-          new_var[column.index(cell)] = [cell]
+          board_turned_90[column.index(cell)] = [cell]
         end
       end
     end
 
-    new_var.values.map { |value| value.map { |cell| cell.piece}.each_cons(4) { |consecutive| consecutive_rows << consecutive}}
+    board_turned_90.values.map { |value| value.map { |cell| cell.piece}.each_cons(4) { |consecutive| consecutive_rows << consecutive}}
       
     consecutive_rows.any?(["X", "X", "X", "X"]) ||
     consecutive_rows.any?(["O", "O", "O", "O"])
