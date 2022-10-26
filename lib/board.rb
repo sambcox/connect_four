@@ -19,17 +19,13 @@ class Board
 
   def print_board
     puts columns.keys.join(" ")
-    board_turned_90 = {}
-    columns.each do |header, column|
-      column.each do |cell|
-        if board_turned_90.keys.include?(column.index(cell))
-          board_turned_90[column.index(cell)] << cell.piece
-        else
-          board_turned_90[column.index(cell)] = [cell.piece]
-        end
+    
+    columns.values.transpose.reverse.map do |row| 
+      joined_row = row.map do |cell|
+        cell.piece
       end
+      puts joined_row.join(" ")
     end
-    board_turned_90.each { |header, row| puts row.join(" ")}
   end
 
   def user_take_turn
@@ -103,21 +99,11 @@ class Board
 
   def horizontal_win?
     consecutive_rows = []
-    board_turned_90 = {}
-    columns.each do |header, column|
-      column.each do |cell|
-        if board_turned_90.keys.include?(column.index(cell))
-          board_turned_90[column.index(cell)] << cell
-        else
-          board_turned_90[column.index(cell)] = [cell]
-        end
-      end
-    end
   
-    board_turned_90.values.map { |value| value.map { |cell| cell.piece}.each_cons(4) { |consecutive| consecutive_rows << consecutive}}
+    columns.values.transpose.reverse.map { |value| value.map { |cell| cell.piece}.each_cons(4) { |consecutive| consecutive_rows << consecutive}}
       
-    consecutive_rows.any?(["X", "X", "X", "X"]) ||
-    consecutive_rows.any?(["O", "O", "O", "O"])
+    return "X" if consecutive_rows.any?(["X", "X", "X", "X"])
+    return "O" if consecutive_rows.any?(["O", "O", "O", "O"])
   end
   
   def vertical_win?
@@ -125,15 +111,23 @@ class Board
   
     columns.values.map { |column| column.map { |cell| cell.piece}.each_cons(4) { |consecutive| consecutive_rows << consecutive}}
   
-    consecutive_rows.any?(["X", "X", "X", "X"]) ||
-    consecutive_rows.any?(["O", "O", "O", "O"])
+    return "X" if consecutive_rows.any?(["X", "X", "X", "X"])
+    return "O" if consecutive_rows.any?(["O", "O", "O", "O"])
   end
   
   def diagonal_win?
     consecutive_rows = []
     diag = {}
+
+    # diagon = []
   
-    diag[1] = columns.values.flatten.select.with_index{|_,i| i % 7 == 0}
+    # columns.values.each_with_index do |column, index|  
+    #   diagon << column[index]
+    # end
+    #   require 'pry'; binding.pry
+    
+  
+    diag[1] = columns.values.flatten.select.with_index{|cell, i| i % 7 == 0}
     diag[2] = columns.values.flatten.select.with_index{|_,i| (i + 8) % 7 == 0}
     diag[3] = columns.values.flatten.select.with_index{|_,i| i % 7 == 5}
     diag[3].shift
@@ -160,17 +154,23 @@ class Board
   
     diag.values.map { |value| value.map { |cell| cell.piece}.each_cons(4) { |consecutive| consecutive_rows << consecutive}}
   
-    consecutive_rows.any?(["X", "X", "X", "X"]) ||
-    consecutive_rows.any?(["O", "O", "O", "O"])
+    return "X" if consecutive_rows.any?(["X", "X", "X", "X"])
+    return "O" if consecutive_rows.any?(["O", "O", "O", "O"])
   end
   
   def win_game?
-    if horizontal_win?
-      return true
-    elsif vertical_win?
-      return true
-    elsif diagonal_win?
-      return true
+    if horizontal_win? == "X"
+      return "X"
+    elsif horizontal_win? == "O"
+      return "O"
+    elsif vertical_win? == "X"
+      return "X"
+    elsif vertical_win? == "O"
+      return "O"
+    elsif diagonal_win? == "X"
+      return "X"
+    elsif diagonal_win? == "O"
+      return "O"
     else
       return false
     end

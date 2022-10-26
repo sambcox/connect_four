@@ -47,17 +47,18 @@ class Game
   end
 
   def game_user_take_turn
-    computer_win_game if board.win_game?
+    overall_win_game if board.win_game? != false
     draw_game if board.endgame?
     puts "--------------------------------"
     puts "Please enter a letter between A and G"
+    puts "--------------------------------"
     board.user_take_turn
     board.print_board
     game_pc_take_turn
   end
 
   def game_pc_take_turn
-    person_win_game if board.win_game?
+    overall_win_game if board.win_game? != false
     draw_game if board.endgame?
     puts "--------------------------------"
     board.computer_take_turn
@@ -66,8 +67,9 @@ class Game
   end
 
   def player1_take_turn
-    player2_win_game if board.win_game?
+    player_win_game if board.win_game? != false
     draw_game if board.endgame?
+    puts "--------------------------------"
     puts "#{player1.name}, please enter a letter between A and G"
     puts "--------------------------------"
     board.user_take_turn
@@ -76,8 +78,9 @@ class Game
   end
 
   def player2_take_turn
-    player1_win_game if board.win_game?
+    player_win_game if board.win_game? != false
     draw_game if board.endgame?
+    puts "--------------------------------"
     puts "#{player2.name}, please enter a letter between A and G"
     puts "--------------------------------"
     board.two_player_take_turn
@@ -102,30 +105,31 @@ class Game
 
   def draw_game
     puts "Thank you for playing! This game is a draw."
-    main_menu
-  end
-
-  def person_win_game
-    puts "--------------------------------"
-    puts "You've won!"
     play_again
   end
 
-  def computer_win_game
+  def overall_win_game
     puts "--------------------------------"
-    puts "You've lost!"
+    if board.win_game? == "X"
+      puts "You've won!"
+    else
+      puts "You've lost!"
+    end
     play_again
   end
 
-  def player1_win_game
+  def player_win_game
+    winner = nil
+    loser = nil
+    if board.win_game? == "X"
+      winner = player1
+      loser = player2
+    else
+      winner = player2
+      loser = player1
+    end
     puts "--------------------------------"
-    puts "Congratulations #{player1.name}, you've won! Better luck next time, #{player2.name}."
-    play_again
-  end
-
-  def player2_win_game
-    puts "--------------------------------"
-    puts "Congratulations #{player2.name}, you've won! Better luck next time, #{player1.name}."
+    puts "Congratulations #{winner.name}, you've won! Better luck next time, #{loser.name}."
     play_again
   end
 
