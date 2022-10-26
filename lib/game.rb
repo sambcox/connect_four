@@ -41,7 +41,9 @@ class Game
 
   def test_start
     @board = Board.new
-
+    @turn = Turn.new(board)
+    @player1 = Player.new("Mike")
+    @player2 = Player.new("Sam")
   end
 
   def start
