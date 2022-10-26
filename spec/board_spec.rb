@@ -39,4 +39,539 @@ RSpec.describe Board do
     expect(board.columns["A"][2].empty?).to eq(true)
 
   end
+
+  describe '#win_game?' do
+    it 'can win horizontally in any row' do
+      game = Game.new
+      game.test_start
+      game.board.place_piece("A")
+      game.board.place_piece("B")
+      game.board.place_piece("C")
+      game.board.place_piece("D")
+
+      expect(game.board.win_game?).to eq(true)
+
+      game = Game.new
+      game.test_start
+      game.board.place_piece("A")
+      game.board.pc_place_piece("B")
+      game.board.place_piece("C")
+      game.board.place_piece("D")
+      game.board.place_piece("A")
+      game.board.place_piece("B")
+      game.board.place_piece("C")
+      game.board.place_piece("D")
+
+      expect(game.board.win_game?).to eq(true)
+      
+      game = Game.new
+      game.test_start
+      game.board.place_piece("A")
+      game.board.pc_place_piece("B")
+      game.board.place_piece("C")
+      game.board.place_piece("D")
+      game.board.place_piece("A")
+      game.board.pc_place_piece("B")
+      game.board.place_piece("C")
+      game.board.place_piece("D")
+      game.board.place_piece("A")
+      game.board.place_piece("B")
+      game.board.place_piece("C")
+      game.board.place_piece("D")
+
+      expect(game.board.win_game?).to eq(true)
+
+      game = Game.new
+      game.test_start
+      game.board.pc_place_piece("A")
+      game.board.place_piece("B")
+      game.board.place_piece("C")
+      game.board.pc_place_piece("D")
+      game.board.place_piece("A")
+      game.board.pc_place_piece("B")
+      game.board.place_piece("C")
+      game.board.place_piece("D")
+      game.board.place_piece("A")
+      game.board.place_piece("B")
+      game.board.pc_place_piece("C")
+      game.board.place_piece("D")
+      game.board.place_piece("A")
+      game.board.place_piece("B")
+      game.board.place_piece("C")
+      game.board.place_piece("D")
+
+      expect(game.board.win_game?).to eq(true)
+
+      game = Game.new
+      game.test_start
+      game.board.pc_place_piece("A")
+      game.board.place_piece("B")
+      game.board.place_piece("C")
+      game.board.pc_place_piece("D")
+      game.board.place_piece("A")
+      game.board.pc_place_piece("B")
+      game.board.place_piece("C")
+      game.board.place_piece("D")
+      game.board.place_piece("A")
+      game.board.place_piece("B")
+      game.board.pc_place_piece("C")
+      game.board.place_piece("D")
+      game.board.place_piece("A")
+      game.board.place_piece("B")
+      game.board.place_piece("C")
+      game.board.pc_place_piece("D")
+      game.board.place_piece("A")
+      game.board.place_piece("B")
+      game.board.place_piece("C")
+      game.board.place_piece("D")
+
+      expect(game.board.win_game?).to eq(true)
+
+      game = Game.new
+      game.test_start
+      game.board.place_piece("A")
+      game.board.place_piece("B")
+      game.board.place_piece("C")
+      game.board.pc_place_piece("D")
+      game.board.place_piece("A")
+      game.board.pc_place_piece("B")
+      game.board.place_piece("C")
+      game.board.place_piece("D")
+      game.board.pc_place_piece("A")
+      game.board.place_piece("B")
+      game.board.pc_place_piece("C")
+      game.board.place_piece("D")
+      game.board.place_piece("A")
+      game.board.place_piece("B")
+      game.board.place_piece("C")
+      game.board.pc_place_piece("D")
+      game.board.place_piece("A")
+      game.board.pc_place_piece("B")
+      game.board.place_piece("C")
+      game.board.place_piece("D")
+      game.board.place_piece("A")
+      game.board.place_piece("B")
+      game.board.place_piece("C")
+      game.board.place_piece("D")
+
+      expect(game.board.win_game?).to eq(true)
+    end
+
+    it 'can win vertically in any column' do
+      game = Game.new
+      game.test_start
+      game.board.place_piece("A")
+      game.board.place_piece("A")
+      game.board.place_piece("A")
+      game.board.place_piece("A")
+
+      expect(game.board.win_game?).to eq(true)
+
+      game = Game.new
+      game.test_start
+      game.board.place_piece("B")
+      game.board.place_piece("B")
+      game.board.place_piece("B")
+      game.board.place_piece("B")
+
+      expect(game.board.win_game?).to eq(true)
+
+      game = Game.new
+      game.test_start
+      game.board.place_piece("C")
+      game.board.place_piece("C")
+      game.board.place_piece("C")
+      game.board.place_piece("C")
+
+      expect(game.board.win_game?).to eq(true)
+
+      game = Game.new
+      game.test_start
+      game.board.place_piece("D")
+      game.board.place_piece("D")
+      game.board.place_piece("D")
+      game.board.place_piece("D")
+
+      expect(game.board.win_game?).to eq(true)
+
+      game = Game.new
+      game.test_start
+      game.board.place_piece("E")
+      game.board.place_piece("E")
+      game.board.place_piece("E")
+      game.board.place_piece("E")
+
+      expect(game.board.win_game?).to eq(true)
+
+      game = Game.new
+      game.test_start
+      game.board.place_piece("F")
+      game.board.place_piece("F")
+      game.board.place_piece("F")
+      game.board.place_piece("F")
+
+      expect(game.board.win_game?).to eq(true)
+
+      game = Game.new
+      game.test_start
+      game.board.place_piece("G")
+      game.board.place_piece("G")
+      game.board.place_piece("G")
+      game.board.place_piece("G")
+
+      expect(game.board.win_game?).to eq(true)
+    end
+
+    it 'can win diagonally in all possible areas' do
+      game = Game.new
+      game.test_start
+      game.board.place_piece("A")
+      game.board.place_piece("B")
+      game.board.place_piece("C")
+      game.board.pc_place_piece("D")
+      game.board.place_piece("B")
+      game.board.place_piece("C")
+      game.board.place_piece("D")
+      game.board.place_piece("C")
+      game.board.place_piece("D")
+      game.board.place_piece("D")
+
+      expect(game.board.win_game?).to eq(true)
+
+      game = Game.new
+      game.test_start
+      game.board.place_piece("B")
+      game.board.place_piece("C")
+      game.board.place_piece("D")
+      game.board.pc_place_piece("E")
+      game.board.place_piece("C")
+      game.board.place_piece("D")
+      game.board.place_piece("E")
+      game.board.place_piece("D")
+      game.board.place_piece("E")
+      game.board.place_piece("E")
+
+      expect(game.board.win_game?).to eq(true)
+
+      game = Game.new
+      game.test_start
+      game.board.place_piece("C")
+      game.board.place_piece("D")
+      game.board.place_piece("E")
+      game.board.pc_place_piece("F")
+      game.board.place_piece("D")
+      game.board.place_piece("E")
+      game.board.place_piece("F")
+      game.board.place_piece("E")
+      game.board.place_piece("F")
+      game.board.place_piece("F")
+
+      expect(game.board.win_game?).to eq(true)
+
+      game = Game.new
+      game.test_start
+      game.board.place_piece("D")
+      game.board.place_piece("E")
+      game.board.place_piece("F")
+      game.board.pc_place_piece("G")
+      game.board.place_piece("E")
+      game.board.place_piece("F")
+      game.board.place_piece("G")
+      game.board.place_piece("F")
+      game.board.place_piece("G")
+      game.board.place_piece("G")
+
+      expect(game.board.win_game?).to eq(true)
+
+      game = Game.new
+      game.test_start
+      game.board.pc_place_piece("A")
+      game.board.place_piece("A")
+      game.board.place_piece("B")
+      game.board.pc_place_piece("B")
+      game.board.place_piece("B")
+      game.board.place_piece("C")
+      game.board.pc_place_piece("C")
+      game.board.pc_place_piece("C")
+      game.board.place_piece("C")
+      game.board.place_piece("D")
+      game.board.place_piece("D")
+      game.board.pc_place_piece("D")
+      game.board.place_piece("D")
+      game.board.place_piece("D")
+
+      expect(game.board.win_game?).to eq(true)
+
+      game = Game.new
+      game.test_start
+      game.board.pc_place_piece("A")
+      game.board.place_piece("A")
+      game.board.place_piece("B")
+      game.board.pc_place_piece("B")
+      game.board.place_piece("B")
+      game.board.place_piece("C")
+      game.board.pc_place_piece("C")
+      game.board.pc_place_piece("C")
+      game.board.place_piece("C")
+      game.board.place_piece("D")
+      game.board.place_piece("D")
+      game.board.pc_place_piece("D")
+      game.board.place_piece("D")
+      game.board.pc_place_piece("D")
+      game.board.place_piece("A")
+      game.board.place_piece("B")
+      game.board.place_piece("C")
+      game.board.place_piece("D")
+
+      expect(game.board.win_game?).to eq(true)
+
+      game = Game.new
+      game.test_start
+      game.board.place_piece("G")
+      game.board.place_piece("F")
+      game.board.place_piece("F")
+      game.board.pc_place_piece("E")
+      game.board.place_piece("E")
+      game.board.place_piece("E")
+      game.board.place_piece("D")
+      game.board.pc_place_piece("D")
+      game.board.place_piece("D")
+      game.board.place_piece("D")
+
+
+      expect(game.board.win_game?).to eq(true)
+
+      game = Game.new
+      game.test_start
+      game.board.place_piece("G")
+      game.board.place_piece("F")
+      game.board.place_piece("F")
+      game.board.pc_place_piece("E")
+      game.board.place_piece("E")
+      game.board.place_piece("E")
+      game.board.place_piece("D")
+      game.board.pc_place_piece("D")
+      game.board.place_piece("D")
+      game.board.place_piece("D")
+      game.board.place_piece("G")
+      game.board.place_piece("F")
+      game.board.place_piece("E")
+      game.board.place_piece("D")
+
+      expect(game.board.win_game?).to eq(true)
+
+      game = Game.new
+      game.test_start
+      game.board.place_piece("G")
+      game.board.place_piece("F")
+      game.board.place_piece("F")
+      game.board.pc_place_piece("E")
+      game.board.place_piece("E")
+      game.board.place_piece("E")
+      game.board.place_piece("D")
+      game.board.pc_place_piece("D")
+      game.board.place_piece("D")
+      game.board.place_piece("D")
+      game.board.place_piece("G")
+      game.board.pc_place_piece("F")
+      game.board.place_piece("E")
+      game.board.place_piece("D")
+      game.board.place_piece("G")
+      game.board.place_piece("F")
+      game.board.place_piece("E")
+      game.board.place_piece("D")
+
+      expect(game.board.win_game?).to eq(true)
+
+      game = Game.new
+      game.test_start
+      game.board.place_piece("F")
+      game.board.place_piece("E")
+      game.board.place_piece("E")
+      game.board.pc_place_piece("D")
+      game.board.place_piece("D")
+      game.board.place_piece("D")
+      game.board.place_piece("C")
+      game.board.pc_place_piece("C")
+      game.board.place_piece("C")
+      game.board.place_piece("C")
+
+      expect(game.board.win_game?).to eq(true)
+
+      game = Game.new
+      game.test_start
+      game.board.place_piece("F")
+      game.board.place_piece("E")
+      game.board.place_piece("E")
+      game.board.pc_place_piece("D")
+      game.board.place_piece("D")
+      game.board.place_piece("D")
+      game.board.place_piece("C")
+      game.board.pc_place_piece("C")
+      game.board.place_piece("C")
+      game.board.place_piece("C")
+      game.board.place_piece("F")
+      game.board.place_piece("E")
+      game.board.place_piece("D")
+      game.board.place_piece("C")
+
+      expect(game.board.win_game?).to eq(true)
+  
+
+    game = Game.new
+      game.test_start
+      game.board.place_piece("F")
+      game.board.place_piece("E")
+      game.board.place_piece("E")
+      game.board.pc_place_piece("D")
+      game.board.place_piece("D")
+      game.board.place_piece("D")
+      game.board.place_piece("C")
+      game.board.pc_place_piece("C")
+      game.board.place_piece("C")
+      game.board.place_piece("C")
+      game.board.place_piece("F")
+      game.board.pc_place_piece("E")
+      game.board.place_piece("D")
+      game.board.place_piece("C")
+      game.board.place_piece("F")
+      game.board.place_piece("E")
+      game.board.place_piece("D")
+      game.board.place_piece("C")
+
+      expect(game.board.win_game?).to eq(true)
+
+      game = Game.new
+      game.test_start
+      game.board.place_piece("E")
+      game.board.place_piece("D")
+      game.board.place_piece("D")
+      game.board.pc_place_piece("C")
+      game.board.place_piece("C")
+      game.board.place_piece("C")
+      game.board.place_piece("B")
+      game.board.pc_place_piece("B")
+      game.board.place_piece("B")
+      game.board.place_piece("B")
+
+      expect(game.board.win_game?).to eq(true)
+
+      game = Game.new
+      game.test_start
+      game.board.place_piece("E")
+      game.board.place_piece("D")
+      game.board.place_piece("D")
+      game.board.pc_place_piece("C")
+      game.board.place_piece("C")
+      game.board.place_piece("C")
+      game.board.place_piece("B")
+      game.board.pc_place_piece("B")
+      game.board.place_piece("B")
+      game.board.place_piece("B")
+      game.board.place_piece("E")
+      game.board.place_piece("D")
+      game.board.place_piece("C")
+      game.board.place_piece("B")
+
+      expect(game.board.win_game?).to eq(true)
+
+      game = Game.new
+      game.test_start
+      game.board.place_piece("E")
+      game.board.place_piece("D")
+      game.board.place_piece("D")
+      game.board.pc_place_piece("C")
+      game.board.place_piece("C")
+      game.board.place_piece("C")
+      game.board.place_piece("B")
+      game.board.pc_place_piece("B")
+      game.board.place_piece("B")
+      game.board.place_piece("B")
+      game.board.place_piece("E")
+      game.board.pc_place_piece("D")
+      game.board.place_piece("C")
+      game.board.place_piece("B")
+      game.board.place_piece("E")
+      game.board.place_piece("D")
+      game.board.place_piece("C")
+      game.board.place_piece("B")
+
+      expect(game.board.win_game?).to eq(true)
+
+      game = Game.new
+      game.test_start
+      game.board.place_piece("D")
+      game.board.place_piece("C")
+      game.board.place_piece("C")
+      game.board.pc_place_piece("B")
+      game.board.place_piece("B")
+      game.board.place_piece("B")
+      game.board.place_piece("A")
+      game.board.pc_place_piece("A")
+      game.board.place_piece("A")
+      game.board.place_piece("A")
+
+      expect(game.board.win_game?).to eq(true)
+
+      game = Game.new
+      game.test_start
+      game.board.place_piece("D")
+      game.board.place_piece("C")
+      game.board.place_piece("C")
+      game.board.pc_place_piece("B")
+      game.board.place_piece("B")
+      game.board.place_piece("B")
+      game.board.place_piece("A")
+      game.board.pc_place_piece("A")
+      game.board.place_piece("A")
+      game.board.place_piece("A")
+      game.board.place_piece("D")
+      game.board.place_piece("C")
+      game.board.place_piece("B")
+      game.board.place_piece("A")
+
+      expect(game.board.win_game?).to eq(true)
+
+      game = Game.new
+      game.test_start
+      game.board.place_piece("D")
+      game.board.place_piece("C")
+      game.board.place_piece("C")
+      game.board.pc_place_piece("B")
+      game.board.place_piece("B")
+      game.board.place_piece("B")
+      game.board.place_piece("A")
+      game.board.pc_place_piece("A")
+      game.board.place_piece("A")
+      game.board.place_piece("A")
+      game.board.place_piece("D")
+      game.board.pc_place_piece("C")
+      game.board.place_piece("B")
+      game.board.place_piece("A")
+      game.board.place_piece("D")
+      game.board.place_piece("C")
+      game.board.place_piece("B")
+      game.board.place_piece("A")
+
+      expect(game.board.win_game?).to eq(true)
+    end
+  end
+
+  describe "#endgame?" do
+    it 'can tell if the board is full' do
+      game = Game.new
+      game.test_start
+      6.times do 
+        game.board.place_piece("A")
+        game.board.pc_place_piece("B")
+        game.board.place_piece("C")
+        game.board.place_piece("D")
+        game.board.place_piece("G")
+        game.board.place_piece("F")
+        game.board.place_piece("E")
+      end
+
+      expect(game.board.endgame?).to eq(true)
+    end
+  end
 end
