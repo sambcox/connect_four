@@ -49,38 +49,28 @@ class Board
   end
 
   def diagonal_win?
-    consecutive_rows = []
-    diag = {}
+    consecutive_diagonals = []
 
-    diag[1] = columns.values.flatten.select.with_index{|cell, i| i % 7 == 0}
-    diag[2] = columns.values.flatten.select.with_index{|_,i| (i + 8) % 7 == 0}
-    diag[3] = columns.values.flatten.select.with_index{|_,i| i % 7 == 5}
-    diag[3].shift
-    diag[4] = columns.values.flatten.select.with_index{|_,i| i % 7 == 4}
-    diag[4].shift(2)
-    diag[5] = columns.values.flatten.select.with_index{|_,i| i % 7 == 1}
-    diag[5].pop
-    diag[6] = columns.values.flatten.select.with_index{|_,i| i % 7 == 2}
-    diag[6].pop(2)
-    diag[7] = columns.values.flatten.select.with_index{|_,i| i % 5 == 4}
-    diag[7].pop(3)
-    diag[8] = columns.values.flatten.select.with_index{|_,i| i % 5 == 3}
-    diag[8].pop(4)
-    diag[9] = columns.values.flatten.select.with_index{|_,i| i % 5 == 3}
-    diag[9].shift(4)
-    diag[10] = columns.values.flatten.select.with_index{|_,i| i % 5 == 2}
-    diag[10].shift(3)
-    diag[11] = columns.values.flatten.select.with_index{|_,i| i % 5 == 1}
-    diag[11].pop
-    diag[11].shift(2)
-    diag[12] = columns.values.flatten.select.with_index{|_,i| i % 5 == 0}
-    diag[12].shift
-    diag[12].pop(2)
+    (0..2).each do |start_row|
+      (0..3).each do |start_col|
+        diagonal = (0..3).map do |i|
+          columns[columns.keys[(start_col + i)]][(start_row + i)].piece
+        end
+        consecutive_diagonals << diagonal
+      end
+    end
 
-    diag.values.map { |value| value.map { |cell| cell.piece}.each_cons(4) { |consecutive| consecutive_rows << consecutive}}
+    (0..2).each do |start_row|
+      (3..6).each do |start_col|
+        diagonal = (0..3).map do |i|
+          columns[columns.keys[(start_col - i)]][(start_row + i)].piece
+        end
+        consecutive_diagonals << diagonal
+      end
+    end
 
-    return "X" if consecutive_rows.any?(["X", "X", "X", "X"])
-    return "O" if consecutive_rows.any?(["O", "O", "O", "O"])
+    return "X" if consecutive_diagonals.any? { |diagonal| diagonal.all?("X") }
+    return "O" if consecutive_diagonals.any? { |diagonal| diagonal.all?("O") }
   end
 
   def win_game?
